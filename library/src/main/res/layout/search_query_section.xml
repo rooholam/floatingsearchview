@@ -19,9 +19,9 @@
             android:id="@+id/search_bar_left_action_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/search_bar_left_icon_left_margin"
-            android:layout_marginStart="@dimen/search_bar_left_icon_left_margin">
+            android:layout_marginRight="@dimen/search_bar_left_icon_left_margin">
 
             <ImageView
                 android:id="@+id/left_action"
@@ -30,6 +30,7 @@
                 android:alpha="1"
                 android:background="@drawable/oval_btn_selector"
                 android:clickable="true"
+                android:scaleX="-1"
                 android:padding="@dimen/square_button_padding"
                 android:src="@drawable/ic_arrow_back_black_24dp"/>
 
@@ -48,14 +49,13 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="@dimen/search_bar_search_input_left_margin"
-            android:layout_toEndOf="@+id/search_bar_left_action_container"
-            android:layout_toRightOf="@+id/search_bar_left_action_container">
+            android:layout_toLeftOf="@+id/search_bar_left_action_container">
 
             <com.arlib.floatingsearchview.util.view.SearchInputView
                 android:id="@+id/search_bar_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
+                android:layout_gravity="center_vertical|right"
                 android:alpha="1"
                 android:background="@color/transparent"
                 android:ellipsize="end"
@@ -72,11 +72,9 @@
             android:id="@+id/menu_view"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/square_button_size"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/search_bar_right_icon_right_margin"
-            android:layout_marginRight="@dimen/search_bar_right_icon_right_margin"
+            android:layout_marginLeft="@dimen/search_bar_right_icon_right_margin"
             android:orientation="horizontal"/>
 
         <ImageView
