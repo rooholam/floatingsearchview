@@ -34,7 +34,7 @@
             app:floatingSearch_searchBarMarginLeft="@dimen/search_view_inset"
             app:floatingSearch_searchBarMarginRight="@dimen/search_view_inset"
             app:floatingSearch_searchBarMarginTop="@dimen/search_view_inset"
-            app:floatingSearch_searchHint="Search..."
+            app:floatingSearch_searchHint="@string/abc_search_hint"
             app:floatingSearch_showSearchKey="true"
             app:floatingSearch_suggestionsListAnimDuration="250"
             app:floatingSearch_dimBackground="false"

@@ -37,7 +37,7 @@ public class DataHelper {
 
     private static List<ColorWrapper> sColorWrappers = new ArrayList<>();
 
-    private static List<ColorSuggestion> sColorSuggestions =
+    public static List<ColorSuggestion> sColorSuggestions =
             new ArrayList<>(Arrays.asList(
                     new ColorSuggestion("green"),
                     new ColorSuggestion("blue"),

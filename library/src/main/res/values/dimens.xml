@@ -14,5 +14,6 @@
     <dimen name="square_button_padding">12dp</dimen>
 
     <dimen name="suggestion_body_text_size">18sp</dimen>
+    <dimen name="suggestion_body_hint_text_size">12sp</dimen>
     <dimen name="search_bar_text_size">16sp</dimen>
 </resources>

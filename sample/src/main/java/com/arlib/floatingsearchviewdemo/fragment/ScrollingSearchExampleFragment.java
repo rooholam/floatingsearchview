@@ -128,7 +128,7 @@ public class ScrollingSearchExampleFragment extends BaseExampleFragment implemen
 
                             @Override
                             public void onResults(List<ColorWrapper> results) {
-                                 //show search results
+                                //show search results
                             }
 
                         });
@@ -213,7 +213,7 @@ public class ScrollingSearchExampleFragment extends BaseExampleFragment implemen
         mSearchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
             @Override
             public void onBindSuggestion(View suggestionView, ImageView leftIcon,
-                                         TextView textView, SearchSuggestion item, int itemPosition) {
+                                         TextView textView, TextView hintTextView, SearchSuggestion item, int itemPosition) {
                 ColorSuggestion colorSuggestion = (ColorSuggestion) item;
 
                 String textColor = mIsDarkSearchTheme ? "#ffffff" : "#000000";

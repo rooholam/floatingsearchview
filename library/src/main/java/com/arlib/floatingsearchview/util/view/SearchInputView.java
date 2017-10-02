@@ -6,7 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
-public class SearchInputView extends EditText {
+public class SearchInputView extends android.support.v7.widget.AppCompatEditText {
 
     private OnKeyboardSearchKeyClickListener mSearchKeyListener;
 

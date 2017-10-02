@@ -641,7 +641,7 @@ public class FloatingSearchView extends FrameLayout {
                 if (mSkipQueryFocusChangeEvent) {
                     mSkipQueryFocusChangeEvent = false;
                 } else if (hasFocus != mIsFocused) {
-                    setSearchFocusedInternal(hasFocus);
+                    setSearchFocusedInternal(hasFocus, false);
                 }
             }
         });
@@ -650,7 +650,7 @@ public class FloatingSearchView extends FrameLayout {
             @Override
             public void onKeyboardDismissed() {
                 if (mCloseSearchOnSofteKeyboardDismiss) {
-                    setSearchFocusedInternal(false);
+                    setSearchFocusedInternal(false, false);
                 }
             }
         });
@@ -668,7 +668,7 @@ public class FloatingSearchView extends FrameLayout {
                 } else {
                     setSearchText(getQuery());
                 }
-                setSearchFocusedInternal(false);
+                setSearchFocusedInternal(false, false);
             }
         });
 
@@ -677,18 +677,18 @@ public class FloatingSearchView extends FrameLayout {
             public void onClick(View v) {
 
                 if (isSearchBarFocused()) {
-                    setSearchFocusedInternal(false);
+                    setSearchFocusedInternal(false, false);
                 } else {
                     switch (mLeftActionMode) {
                         case LEFT_ACTION_MODE_SHOW_HAMBURGER:
-                            if(mLeftMenuClickListener != null){
+                            if (mLeftMenuClickListener != null) {
                                 mLeftMenuClickListener.onClick(mLeftAction);
-                            }else {
+                            } else {
                                 toggleLeftMenu();
                             }
                             break;
                         case LEFT_ACTION_MODE_SHOW_SEARCH:
-                            setSearchFocusedInternal(true);
+                            setSearchFocusedInternal(true, false);
                             break;
                         case LEFT_ACTION_MODE_SHOW_HOME:
                             if (mOnHomeActionClickListener != null) {
@@ -717,14 +717,14 @@ public class FloatingSearchView extends FrameLayout {
             } else {
                 paddingRight += Util.dpToPx(14);
             }
-            mSearchInput.setPadding(0, 0, paddingRight, 0);
+            mSearchInput.setPadding(paddingRight, 0, 0, 0);
         } else {
             mClearButton.setTranslationX(-menuItemsWidth);
             int paddingRight = menuItemsWidth;
             if (mIsFocused) {
                 paddingRight += Util.dpToPx(CLEAR_BTN_WIDTH_DP);
             }
-            mSearchInput.setPadding(0, 0, paddingRight, 0);
+            mSearchInput.setPadding(paddingRight, 0, 0, 0);
         }
     }
 
@@ -780,7 +780,7 @@ public class FloatingSearchView extends FrameLayout {
      *
      * @return
      */
-    public List<MenuItemImpl> getCurrentMenuItems(){
+    public List<MenuItemImpl> getCurrentMenuItems() {
         return mMenuView.getCurrentMenuItems();
     }
 
@@ -1129,7 +1129,7 @@ public class FloatingSearchView extends FrameLayout {
 
                 //todo check if this is called twice
                 if (mDismissOnOutsideTouch && mIsFocused) {
-                    setSearchFocusedInternal(false);
+                    setSearchFocusedInternal(false, false);
                 }
 
                 return true;
@@ -1240,12 +1240,32 @@ public class FloatingSearchView extends FrameLayout {
 
         if ((focused != this.mIsFocused) && mSuggestionSecHeightListener == null) {
             if (mIsSuggestionsSectionHeightSet) {
-                setSearchFocusedInternal(focused);
+                setSearchFocusedInternal(focused, false);
             } else {
                 mSuggestionSecHeightListener = new OnSuggestionSecHeightSetListener() {
                     @Override
                     public void onSuggestionSecHeightSet() {
-                        setSearchFocusedInternal(focused);
+                        setSearchFocusedInternal(focused, false);
+                        mSuggestionSecHeightListener = null;
+                    }
+                };
+            }
+        }
+        return updatedToNotFocused;
+    }
+
+    public boolean setSearchFocusedKeyboardHidden(final boolean focused) {
+
+        boolean updatedToNotFocused = !focused && this.mIsFocused;
+
+        if ((focused != this.mIsFocused) && mSuggestionSecHeightListener == null) {
+            if (mIsSuggestionsSectionHeightSet) {
+                setSearchFocusedInternal(focused, true);
+            } else {
+                mSuggestionSecHeightListener = new OnSuggestionSecHeightSetListener() {
+                    @Override
+                    public void onSuggestionSecHeightSet() {
+                        setSearchFocusedInternal(focused, true);
                         mSuggestionSecHeightListener = null;
                     }
                 };
@@ -1299,7 +1319,7 @@ public class FloatingSearchView extends FrameLayout {
                                 setSearchText(item.getBody());
                             }
 
-                            setSearchFocusedInternal(false);
+                            setSearchFocusedInternal(false, false);
                         }
                     }
 
@@ -1462,14 +1482,14 @@ public class FloatingSearchView extends FrameLayout {
     }
 
     public void clearSearchFocus() {
-        setSearchFocusedInternal(false);
+        setSearchFocusedInternal(false, false);
     }
 
     public boolean isSearchBarFocused() {
         return mIsFocused;
     }
 
-    private void setSearchFocusedInternal(final boolean focused) {
+    private void setSearchFocusedInternal(final boolean focused, boolean noSoftKeyboad) {
         this.mIsFocused = focused;
 
         if (focused) {
@@ -1482,7 +1502,8 @@ public class FloatingSearchView extends FrameLayout {
             handleOnVisibleMenuItemsWidthChanged(0);//this must be called before  mMenuView.hideIfRoomItems(...)
             mMenuView.hideIfRoomItems(true);
             transitionInLeftSection(true);
-            Util.showSoftKeyboard(getContext(), mSearchInput);
+            if (!noSoftKeyboad)
+                Util.showSoftKeyboard(getContext(), mSearchInput);
             if (mMenuOpen) {
                 closeMenu(false);
             }

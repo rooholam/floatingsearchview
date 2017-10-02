@@ -53,7 +53,7 @@ public class SearchSuggestionsAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public interface OnBindSuggestionCallback {
 
-        void onBindSuggestion(View suggestionView, ImageView leftIcon, TextView textView,
+        void onBindSuggestion(View suggestionView, ImageView leftIcon, TextView textView, TextView hintTextView,
                               SearchSuggestion item, int itemPosition);
     }
 
@@ -69,6 +69,7 @@ public class SearchSuggestionsAdapter extends RecyclerView.Adapter<RecyclerView.
     public static class SearchSuggestionViewHolder extends RecyclerView.ViewHolder {
 
         public TextView body;
+        public TextView body_hint;
         public ImageView leftIcon;
         public ImageView rightIcon;
 
@@ -86,6 +87,7 @@ public class SearchSuggestionsAdapter extends RecyclerView.Adapter<RecyclerView.
 
             mListener = listener;
             body = (TextView) v.findViewById(R.id.body);
+            body_hint = (TextView) v.findViewById(R.id.body_hint);
             leftIcon = (ImageView) v.findViewById(R.id.left_icon);
             rightIcon = (ImageView) v.findViewById(R.id.right_icon);
 
@@ -184,16 +186,16 @@ public class SearchSuggestionsAdapter extends RecyclerView.Adapter<RecyclerView.
         SearchSuggestion suggestionItem = mSearchSuggestions.get(position);
         viewHolder.body.setText(suggestionItem.getBody());
 
-        if(mTextColor != -1){
+        if (mTextColor != -1) {
             viewHolder.body.setTextColor(mTextColor);
         }
 
-        if(mRightIconColor != -1){
+        if (mRightIconColor != -1) {
             Util.setIconColor(viewHolder.rightIcon, mRightIconColor);
         }
 
         if (mOnBindSuggestionCallback != null) {
-            mOnBindSuggestionCallback.onBindSuggestion(viewHolder.itemView, viewHolder.leftIcon, viewHolder.body,
+            mOnBindSuggestionCallback.onBindSuggestion(viewHolder.itemView, viewHolder.leftIcon, viewHolder.body, viewHolder.body_hint,
                     suggestionItem, position);
         }
     }

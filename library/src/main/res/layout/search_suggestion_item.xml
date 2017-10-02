@@ -43,7 +43,23 @@
         android:padding="@dimen/square_button_padding"
         android:rotation="45"
         android:src="@drawable/ic_arrow_back_black_24dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginRight="@dimen/search_bar_right_icon_right_margin" />
+
+    <TextView
+        android:id="@+id/body_hint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center"
+        android:layout_marginEnd="@dimen/search_bar_search_input_left_margin"
+        android:layout_marginRight="@dimen/search_bar_search_input_left_margin"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="left|center"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:textSize="@dimen/suggestion_body_hint_text_size"
+        tools:text="body hint"
+        />
 
 </LinearLayout>
