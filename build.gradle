@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -16,5 +16,32 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+    }
+    apply plugin: "com.jfrog.artifactory"
+    apply plugin: 'maven-publish'
+}
+
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'gradle-release-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+
+        }
+        defaults {
+            publications('floatingsearchview')
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'gradle-release'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+
+        }
     }
 }
