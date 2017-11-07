@@ -11,6 +11,11 @@ android {
         versionCode 11
         versionName "2.0.4"
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
