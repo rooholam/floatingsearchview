@@ -2,7 +2,7 @@
 
 buildscript {
     repositories {
-        jcenter()
+        maven { url 'http://repos.cafebazaar.ir/artifactory/jcenter' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -14,8 +14,8 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenCentral()
-        jcenter()
+        maven { url 'http://repos.cafebazaar.ir/artifactory/jcenter' }
+        maven { url 'http://repos.cafebazaar.ir/artifactory/google' }
     }
     apply plugin: "com.jfrog.artifactory"
     apply plugin: 'maven-publish'
